@@ -1,7 +1,7 @@
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import Header from "../src/components/Header";
+import Header from "../src/front/components/Header";
 
 /*
  * This is an example test file.
