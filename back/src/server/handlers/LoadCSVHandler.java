@@ -45,7 +45,7 @@ public class LoadCSVHandler implements Route {
     try {
       this.hasHeaders = Boolean.parseBoolean(request.queryParams("hasHeaders"));
       CreatorFromRow<List<String>> rowCreator = new DefaultCreator<>();
-      Parser parser = new Parser<>(new FileReader("data/stars/" + filepath + ".csv"), rowCreator);
+      Parser parser = new Parser<>(new FileReader("data/" + filepath + ".csv"), rowCreator);
       this.list = parser.parse();
       return this.loadSuccessResponse(filepath);
     } catch (FileNotFoundException e) {

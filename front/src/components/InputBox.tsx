@@ -36,16 +36,34 @@ export default function InputBox(props: InputBoxProps) {
   }
 
   async function search(){
-    if(splitInput.length == 3){
-      splitInput[2]
+    let response: Response;
+    console.log(splitInput)
+    if(splitInput.length < 2){
+        props.setHistory([
+          ...props.history,
+          "result: please provide a search value"
+        ]);
+        return
+    }else if(splitInput.length == 3){
+      const col: string = splitInput[2]
+      response = await fetch("http://localhost:3233/searchcsv?value=" + splitInput[1] + "colindex=" + col);
+    }else{
+      if(splitInput[1] == ""){
+        props.setHistory([
+          ...props.history,
+             "result: please provide a search value",
+          ]);
+        return
+      }
+      response = await fetch("http://localhost:3233/searchcsv?value=" + splitInput[1]);
     }
-    const response: Response = await fetch("http://localhost:3233/searchcsv?value=" + splitInput[1] + "");
     const responseJson: searchResponse = await response.json();
-    const result = responseJson.result;
+    console.log(responseJson)
+    const result  = responseJson.result;
     const searchResult = responseJson.search_result;
     props.setHistory([
       ...props.history,
-      "result: " + result + ", filepath: " + searchResult,
+      "result: " + result + ", search result: " + searchResult,
     ]);
 
   }

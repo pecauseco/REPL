@@ -65,11 +65,13 @@ public class Search {
    * @param onColumn
    */
   public void performSearch(boolean onColumn) {
+    System.out.println(this.csvData);
     if (onColumn == false) {
       this.genericSearch(this.csvData);
     } else {
       this.searchOnCol(this.csvData);
     }
+    System.out.println(this.searchResults);
   }
 
   /**

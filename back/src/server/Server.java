@@ -2,7 +2,6 @@ package edu.brown.cs.student.main.server;
 
 import static spark.Spark.after;
 
-import edu.brown.cs.student.main.server.caching.CachingMain;
 import edu.brown.cs.student.main.server.handlers.*;
 import spark.Spark;
 
@@ -45,13 +44,13 @@ public final class Server {
     // Setting up the handler for the GET /order endpoint
     LoadCSVHandler loadHandler = new LoadCSVHandler();
     // passes the cache into weather handler here so that it is the same cache for every call
-    CachingMain cache = new CachingMain(new TempFinder());
+    //CachingMain cache = new CachingMain(new TempFinder());
     // load handlers are passed in below so that the handlers know what file was previously loaded
     Spark.get("loadcsv", loadHandler);
     Spark.get("viewcsv", new ViewCSVHandler(loadHandler));
     Spark.get("searchcsv", new SearchCSVHandler(loadHandler));
     //instantiate a real API source and pass it into weather handler
-    Spark.get("weather", new WeatherHandler(cache));
+    //Spark.get("weather", new WeatherHandler(cache));
     Spark.init();
     Spark.awaitInitialization();
     System.out.println("Server started at http://localhost:3233");
