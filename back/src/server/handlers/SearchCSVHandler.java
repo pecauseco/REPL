@@ -2,11 +2,7 @@ package edu.brown.cs.student.main.server.handlers;
 
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
-import edu.brown.cs.student.main.csv.Parser;
-import edu.brown.cs.student.main.csv.creators.CreatorFromRow;
-import edu.brown.cs.student.main.csv.creators.DefaultCreator;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import edu.brown.cs.student.main.csv.Search;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,58 +10,74 @@ import spark.Request;
 import spark.Response;
 import spark.Route;
 
-/**
- * handler class for the loadCSV API endpoint
- */
-public class LoadCSVHandler implements Route {
+/** handler class for the searchcsv api */
+public class SearchCSVHandler implements Route {
 
   private List<List<String>> list;
-  private boolean hasHeaders;
-
-  public LoadCSVHandler() {}
+  private LoadCSVHandler loadHandler;
 
   /**
-   * handles the load request and returns the response to the request
+   * constructor for the class, takes in a loadhandler so that the program knows what file it is
+   * searching on
+   *
+   * @param loadHandler the loadhandler for the loaded file
+   */
+  public SearchCSVHandler(LoadCSVHandler loadHandler) {
+    this.loadHandler = loadHandler;
+  }
+
+  /**
+   * handles the search request and returns the response to the request
+   *
    * @param request the request to handle
-   * @param response use to modify properties of the response
+   * @param response used to modify properties of the response
    * @return response content
    */
   @Override
   public Object handle(Request request, Response response) {
-    String filepath = request.queryParams("filepath");
+    String value = request.queryParams("value");
+    String colIndex = request.queryParams("colindex");
+    this.list = this.loadHandler.getList();
+    Search s = null;
 
-    //make sure all parameters were given before proceeding
-    if(filepath == null) {
-      return this.loadFailureResponse("no_filepath_provided");
-    }
-    if(request.queryParams("hasheaders") == null) {
-      return this.loadFailureResponse("error_please_provide_hasheaders_value");
-    }
+    if (value != null && this.list != null) {
 
-    try {
-      this.hasHeaders = Boolean.parseBoolean(request.queryParams("hasHeaders"));
-      CreatorFromRow<List<String>> rowCreator = new DefaultCreator<>();
-      Parser parser = new Parser<>(new FileReader("data/stars/" + filepath + ".csv"), rowCreator);
-      this.list = parser.parse();
-      return this.loadSuccessResponse(filepath);
-    } catch (FileNotFoundException e) {
-      return this.loadFailureResponse("error_file_not_found");
+      if (colIndex != null) {
+        try{
+          int col = Integer.parseInt(colIndex);
+          s = new Search(value, col, this.list);
+        }catch(NumberFormatException e){
+          s = new Search(value, colIndex, this.list);
+        }
+
+      } else {
+        s = new Search(value, this.list);
+      }
+      return searchSuccessResponse(s.getSearchResults());
+
+    } else if (value == null) {
+      return searchFailureResponse("error_please_specify_search_value");
+    } else if (this.list == null) {
+      return searchFailureResponse("error_no_file_loaded");
+    } else {
+      return searchFailureResponse("error_search_failure");
     }
   }
 
   /**
-   * builds and serializes the response to a successfully loaded file
-   * @param loadedFile the filepath that was loaded
+   * builds and serializes the response to a successful search
+   *
+   * @param data the data to search
    * @return the response object
    */
-  public String loadSuccessResponse(String loadedFile) {
+  public String searchSuccessResponse(List<List<String>> data) {
     Map<String, Object> response = new HashMap<>();
     response.put("result", "success");
-    response.put("filepath", loadedFile);
+    response.put("search_result", data);
 
     try {
       Moshi moshi = new Moshi.Builder().build();
-      JsonAdapter<Map> adapter = moshi.adapter(Map.class); // what does this ean
+      JsonAdapter<Map> adapter = moshi.adapter(Map.class);
       return adapter.toJson(response);
     } catch (Exception e) {
       e.printStackTrace();
@@ -74,27 +86,16 @@ public class LoadCSVHandler implements Route {
   }
 
   /**
-   * builds and serializes the response to a failed loaded file
+   * builds and serializes the response to a failed search
+   *
    * @param error_message the error message to provide the user
    * @return the response object
    */
-  public String loadFailureResponse(String error_message) {
+  public String searchFailureResponse(String error_message) {
     Map<String, Object> response = new HashMap<>();
     response.put("result", error_message);
     Moshi moshi = new Moshi.Builder().build();
     JsonAdapter<Map> adapter = moshi.adapter(Map.class);
     return adapter.toJson(response);
-  }
-
-  /**
-   * getter method for the csv data
-   * @return the List<List<String>> that represents the csv
-   */
-  public List<List<String>> getList() {
-    return this.list;
-  }
-
-  public boolean getHasHeaders() {
-    return this.hasHeaders;
   }
 }
