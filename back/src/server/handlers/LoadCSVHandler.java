@@ -1,10 +1,10 @@
-package edu.brown.cs.student.main.server.handlers;
+package src.server.handlers;
 
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
-import edu.brown.cs.student.main.csv.Parser;
-import edu.brown.cs.student.main.csv.creators.CreatorFromRow;
-import edu.brown.cs.student.main.csv.creators.DefaultCreator;
+import src.csv.Parser;
+import src.csv.creators.CreatorFromRow;
+import src.csv.creators.DefaultCreator;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.HashMap;

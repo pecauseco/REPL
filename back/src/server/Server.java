@@ -1,8 +1,8 @@
-package edu.brown.cs.student.main.server;
+package src.server;
 
 import static spark.Spark.after;
 
-import edu.brown.cs.student.main.server.handlers.*;
+import src.server.handlers.*;
 import spark.Spark;
 
 /** the Main class of our project. this is where execution begins. */

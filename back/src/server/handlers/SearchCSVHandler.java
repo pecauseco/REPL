@@ -1,8 +1,8 @@
-package edu.brown.cs.student.main.server.handlers;
+package src.server.handlers;
 
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
-import edu.brown.cs.student.main.csv.Search;
+import src.csv.Search;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

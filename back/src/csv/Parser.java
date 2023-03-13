@@ -1,7 +1,7 @@
-package edu.brown.cs.student.main.csv;
+package src.csv;
 
-import edu.brown.cs.student.main.csv.creators.CreatorFromRow;
-import edu.brown.cs.student.main.csv.creators.FactoryFailureException;
+import src.csv.creators.CreatorFromRow;
+import src.csv.creators.FactoryFailureException;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;

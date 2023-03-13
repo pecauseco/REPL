@@ -16,58 +16,108 @@ export interface searchResponse {
   search_result: string[];
 }
 
+export interface viewResponse {
+  result: string;
+  data: string[][];
+}
+
 
 export default function InputBox(props: InputBoxProps) {
-
-  
   // TODO: Add a state variable for the textbox contents
   const [textbox, setTextbox] = useState("");
   let splitInput: string[];
 
-
-  
-  async function loadFile(){
-    const response: Response = await fetch("http://localhost:3233/loadcsv?filepath=" + splitInput[1] + "&hasheaders=" + splitInput[2]);
+  async function loadFile() {
+    const response: Response = await fetch(
+      "http://localhost:3233/loadcsv?filepath=" +
+        splitInput[1] +
+        "&hasheaders=" +
+        splitInput[2]
+    );
     const responseJson: loadResponse = await response.json();
-    const result = responseJson.result
-    const filepath = responseJson.filepath
-    props.setHistory([...props.history, "result: " + result + ", filepath: " + filepath]);
-
+    const result = responseJson.result;
+    const filepath = responseJson.filepath;
+    props.setHistory([
+      ...props.history,
+      "result: " + result + ", filepath: " + filepath,
+    ]);
   }
 
-  async function search(){
-    let response: Response;
-    console.log(splitInput)
-    if(splitInput.length < 2){
-        props.setHistory([
-          ...props.history,
-          "result: please provide a search value"
-        ]);
-        return
-    }else if(splitInput.length == 3){
-      const col: string = splitInput[2]
-      response = await fetch("http://localhost:3233/searchcsv?value=" + splitInput[1] + "colindex=" + col);
-    }else{
-      if(splitInput[1] == ""){
-        props.setHistory([
-          ...props.history,
-             "result: please provide a search value",
-          ]);
-        return
+  async function view() {
+    const response: Response = await fetch("http://localhost:3233/viewcsv");
+    const responseJson: viewResponse = await response.json();
+    const result = responseJson.result;
+    const data = responseJson.data;
+    props.setHistory([
+      ...props.history,
+      "result: " + result + ", data: " + makeTable(data),
+    ]);
+  }
+
+  /**
+   * Makes a table representing the data from the csv
+   * @param fileData - the data from the loaded csv file
+   * @returns a string that is an html representaion of what will be added to the history
+   * portion of the page
+   */
+  function makeTable(fileData: Array<Array<string>> | null): string {
+    if (fileData == null) {
+      return "Please input a correct 2D array.";
+    }
+
+    // referenced from https://stackoverflow.com/questions/15164655/generate-html-table-from-2d-javascript-array
+    //also referenced from sprint-2-hmasamur-jwan8
+    var result = "<table align='center'>";
+    for (var i = 0; i < fileData.length; i++) {
+      result += "<tr>";
+      for (var j = 0; j < fileData[i].length; j++) {
+        result += "<td>" + fileData[i][j] + "</td>";
       }
-      response = await fetch("http://localhost:3233/searchcsv?value=" + splitInput[1]);
+      result += "</tr>";
+    }
+    result += "</table>";
+    return result;
+  }
+
+  async function search() {
+    let response: Response;
+    console.log(splitInput);
+    if (splitInput.length < 2) {
+      props.setHistory([
+        ...props.history,
+        "result: please provide a search value",
+      ]);
+      return;
+    } else if (splitInput.length == 3) {
+      const col: string = splitInput[2];
+      response = await fetch(
+        "http://localhost:3233/searchcsv?value=" +
+          splitInput[1] +
+          "colindex=" +
+          col
+      );
+    } else {
+      if (splitInput[1] == "") {
+        props.setHistory([
+          ...props.history,
+          "result: please provide a search value",
+        ]);
+        return;
+      }
+      response = await fetch(
+        "http://localhost:3233/searchcsv?value=" + splitInput[1]
+      );
     }
     const responseJson: searchResponse = await response.json();
-    console.log(responseJson)
-    const result  = responseJson.result;
+    console.log(responseJson);
+    const result = responseJson.result;
     const searchResult = responseJson.search_result;
     props.setHistory([
       ...props.history,
       "result: " + result + ", search result: " + searchResult,
     ]);
-
   }
-  
+
   /**
    * Handles the submit button being clicked or the enter key being pressed!
    * You may want to make this function more sophisticated to add real
@@ -81,7 +131,7 @@ export default function InputBox(props: InputBoxProps) {
     props.setHistory([...props.history, textbox]);
     //...props.history means everything that is in props.history, just adding textbox to the end
     splitInput = textbox.split(" ");
-    switch(splitInput[0]){
+    switch (splitInput[0]) {
       case "mode":
         // handleMode();
         break;
@@ -89,7 +139,7 @@ export default function InputBox(props: InputBoxProps) {
         loadFile();
         break;
       case "view":
-        // view();
+        view();
         break;
       case "search":
         search();
@@ -99,10 +149,7 @@ export default function InputBox(props: InputBoxProps) {
         break;
     }
 
-    
-
-    
-    setTextbox("")
+    setTextbox("");
     console.log(props.history);
   }
 
