@@ -133,7 +133,11 @@ public class Search {
    *
    * @return the list of rows that contain the search term
    */
-  public List<List<String>> getSearchResults() {
+  public List<List<String>> getSearchResults() throws Exception{
+
+    if (this.searchResults.size() == 0){
+      throw new Exception();
+    }
     return this.searchResults;
   }
 }

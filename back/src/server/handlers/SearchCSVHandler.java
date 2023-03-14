@@ -53,7 +53,10 @@ public class SearchCSVHandler implements Route {
       } else {
         s = new Search(value, this.list);
       }
-      return searchSuccessResponse(s.getSearchResults());
+      try {return searchSuccessResponse(s.getSearchResults());}
+      catch(Exception e){
+        return searchFailureResponse("value_not_found");
+      }
 
     } else if (value == null) {
       return searchFailureResponse("error_please_specify_search_value");
