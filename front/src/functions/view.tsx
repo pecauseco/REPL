@@ -17,13 +17,13 @@ export interface viewResponse {
 
     // referenced from https://stackoverflow.com/questions/15164655/generate-html-table-from-2d-javascript-array
     //also referenced from sprint-2-hmasamur-jwan8
-    var result = "<table align='center'>";
+    var result = "<table align='center'> \n";
     for (var i = 0; i < fileData.length; i++) {
-      result += "<tr>";
+      result += "\t <tr> \n";
       for (var j = 0; j < fileData[i].length; j++) {
-        result += "<td>" + fileData[i][j] + "</td>";
+        result += "\t \t <td>" + fileData[i][j] + "</td> \n";
       }
-      result += "</tr>";
+      result += "\t </tr> \n";
     }
     result += "</table>";
     return result;
@@ -37,7 +37,7 @@ export const View: REPLFunction = async (
     const result = responseJson.result;
     const data = responseJson.data;
     
-    return "result: " + result + ", data: " + makeTable(data);
+    return makeTable(data);
 
   
 };
