@@ -21,7 +21,7 @@ function HistoryBox(props: HistoryBoxProps) {
       { props.isVerbose ? ( 
          <div>
 
-      {props.textboxArray[index]
+      {"Command: " + props.textboxArray[index]
       }
       {checkView(text)}
       

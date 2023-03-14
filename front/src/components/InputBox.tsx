@@ -163,7 +163,13 @@ export default function InputBox(props: InputBoxProps) {
 
   function handleMode(){
     props.setIsVerbose(!props.isVerbose);
-
+    if(props.isVerbose){
+      props.setHistory([...props.history, "mode is now in verbose"]);
+    }
+    else {
+      props.setHistory([...props.history, "mode is now in brief"]);
+    }
+    
   }
 
 
