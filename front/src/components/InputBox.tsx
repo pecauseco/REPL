@@ -10,6 +10,12 @@ import { REPLFunction } from "../functions/REPLFunction";
 interface InputBoxProps {
   history: string[];
   setHistory: (data: string[]) => void;
+  isVerbose: boolean;
+  setIsVerbose: (data: boolean) => void;
+  //
+  textboxArray: string[];
+  setTextboxArray: (data: string[]) => void;
+  //
 }
 
 // export interface loadResponse{
@@ -154,6 +160,13 @@ export default function InputBox(props: InputBoxProps) {
         }
       });
   }
+
+  function handleMode(){
+    props.setIsVerbose(!props.isVerbose);
+
+  }
+
+
   /**
    * Handles the submit button being clicked or the enter key being pressed!
    * You may want to make this function more sophisticated to add real
@@ -166,10 +179,11 @@ export default function InputBox(props: InputBoxProps) {
     // console.log("current contents " + textbox);
     // props.setHistory([...props.history, textbox]);
     //...props.history means everything that is in props.history, just adding textbox to the end
+    props.setTextboxArray([...props.textboxArray, textbox]);
     splitInput = textbox.split(" ");
     switch (splitInput[0]) {
       case "mode":
-        // handleMode();
+        handleMode();
         break;
       default:
          let replFunc = registeredFunctions.get(splitInput[0]);

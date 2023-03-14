@@ -8,17 +8,30 @@ function App() {
   // The data state is an array of strings, which is passed to our components
   // You may want to make this a more complex object, but for now it's just a string
   const [history, setHistory] = useState<string[]>([]);
-
+  const [isVerbose, setIsVerbose] = useState(false);
+  const [textboxArray, setTextboxArray] = useState<string[]>([]);
   return (
     <div>
       <Header />
       <div className="repl">
         {/* TODO: Add HistoryBox */}
-        <HistoryBox history={history} />
+        <HistoryBox
+          history={history}
+          isVerbose={isVerbose}
+          textboxArray={textboxArray}
+          
+        />
 
         <hr />
         {/* TODO: Add InputBox */}
-        <InputBox history={history} setHistory={setHistory} />
+        <InputBox
+          history={history}
+          setHistory={setHistory}
+          isVerbose={isVerbose}
+          setIsVerbose={setIsVerbose}
+          textboxArray={textboxArray}
+          setTextboxArray={setTextboxArray}
+        />
       </div>
     </div>
   );

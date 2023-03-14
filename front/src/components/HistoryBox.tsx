@@ -1,5 +1,7 @@
 interface HistoryBoxProps {
   history: string[];
+  isVerbose: boolean;
+  textboxArray: string[];
 }
 
 function checkView(text: string){
@@ -11,11 +13,19 @@ function checkView(text: string){
 }
 
 function HistoryBox(props: HistoryBoxProps) {
+  const commandIndex = 0;
   return (
     <div className="repl-history">
       {props.history.map((text) => (
-        checkView(text)
-      ))}
+        <div>
+      { props.isVerbose ? (
+        <div>
+      {props.textboxArray[commandIndex]}
+      {checkView(text)}
+      </div> )
+      : (<div>{checkView(text)}</div>)
+    }</div>))}
+      
       {/* TODO: Add a div for each command in the history */}
       {/* Hint: You can use the map function to iterate over an array */}
     </div>
