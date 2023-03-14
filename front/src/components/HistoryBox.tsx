@@ -13,15 +13,18 @@ function checkView(text: string){
 }
 
 function HistoryBox(props: HistoryBoxProps) {
-  const commandIndex = 0;
+ 
   return (
     <div className="repl-history">
-      {props.history.map((text) => (
+      {props.history.map((text, index) => ( 
         <div>
-      { props.isVerbose ? (
-        <div>
-      {props.textboxArray[commandIndex]}
+      { props.isVerbose ? ( 
+         <div>
+
+      {props.textboxArray[index]
+      }
       {checkView(text)}
+      
       </div> )
       : (<div>{checkView(text)}</div>)
     }</div>))}

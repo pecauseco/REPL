@@ -187,15 +187,15 @@ export default function InputBox(props: InputBoxProps) {
         break;
       default:
          let replFunc = registeredFunctions.get(splitInput[0]);
-         if(splitInput[0] == "view"){
-          getResponse(replFunc).then((response) => {
-          props.setHistory([...props.history, "commmand: view, result: ", response]);
-          });
-         }else{
+        //  if(splitInput[0] == "view"){
+        //   getResponse(replFunc).then((response) => {
+        //   props.setHistory([...props.history, "commmand: view, result: ", response]);
+        //   });
+        //  }else{
           getResponse(replFunc).then((response) => {
           props.setHistory([...props.history, response]);
           })
-        };
+        //};
        //need a case for wrong commands that have not been inputted
         break;
       // case "view":
