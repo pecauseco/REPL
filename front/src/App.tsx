@@ -24,6 +24,7 @@ function App() {
 
         <hr />
         {/* TODO: Add InputBox */}
+        <div className="bottomPage">
         <InputBox
           history={history}
           setHistory={setHistory}
@@ -31,7 +32,7 @@ function App() {
           setIsVerbose={setIsVerbose}
           textboxArray={textboxArray}
           setTextboxArray={setTextboxArray}
-        />
+        /></div>
       </div>
     </div>
   );

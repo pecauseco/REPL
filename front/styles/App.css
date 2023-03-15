@@ -6,10 +6,11 @@
 
 .repl {
   position: relative;
+  height: 80vh;
 }
 
 .repl-history {
-  height: 70vh;
+  height: 40vh;
   margin: auto;
   display: block;
   overflow: scroll;
@@ -20,8 +21,17 @@
   height: 10vh;
 }
 
+.bottomPage{
+  height: 10vh;
+}
+
 .repl-command-box {
+  
   width: 90%;
+  height: relative;
+  font-size: relative;
+  position:relative;
+  bottom: 0;
   margin: auto;
   display: block;
 }
