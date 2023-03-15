@@ -17,7 +17,7 @@ function App() {
       </div>
       <div className="repl">
         {/* TODO: Add HistoryBox */}
-        <HistoryBox
+        <HistoryBox 
           history={history}
           isVerbose={isVerbose}
           textboxArray={textboxArray}
@@ -26,7 +26,7 @@ function App() {
         <hr />
         {/* TODO: Add InputBox */}
         <div className="bottomPage">
-          <InputBox
+          <InputBox aria-label="This is the input box. Write your commands here"
             history={history}
             setHistory={setHistory}
             isVerbose={isVerbose}

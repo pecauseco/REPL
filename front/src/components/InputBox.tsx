@@ -1,5 +1,5 @@
 import { useState } from "react";
-import React from 'react';
+import React from "react";
 import { Load } from "../functions/load";
 import { View } from "../functions/view";
 import { Search } from "../functions/search";
@@ -150,28 +150,24 @@ export default function InputBox(props: InputBoxProps) {
   //   ]);
   // }
 
-
-  async function getResponse(replFunc: Function | undefined) : Promise<string> {
-      return new Promise((resolve, reject) => {
-        if (replFunc == undefined) {
-          reject("Invalid command!");
-        } else {
-          resolve(replFunc(splitInput));
-        }
-      });
+  async function getResponse(replFunc: Function | undefined): Promise<string> {
+    return new Promise((resolve, reject) => {
+      if (replFunc == undefined) {
+        reject("Invalid command!");
+      } else {
+        resolve(replFunc(splitInput));
+      }
+    });
   }
 
-  function handleMode(){
+  function handleMode() {
     props.setIsVerbose(!props.isVerbose);
-    if(props.isVerbose){
+    if (props.isVerbose) {
       props.setHistory([...props.history, "mode is now in verbose"]);
-    }
-    else {
+    } else {
       props.setHistory([...props.history, "mode is now in brief"]);
     }
-    
   }
-
 
   /**
    * Handles the submit button being clicked or the enter key being pressed!
@@ -192,17 +188,21 @@ export default function InputBox(props: InputBoxProps) {
         handleMode();
         break;
       default:
-         let replFunc = registeredFunctions.get(splitInput[0]);
-        //  if(splitInput[0] == "view"){
-        //   getResponse(replFunc).then((response) => {
-        //   props.setHistory([...props.history, "commmand: view, result: ", response]);
-        //   });
-        //  }else{
+        if (registeredFunctions.has(splitInput[0])) {
+          let replFunc = registeredFunctions.get(splitInput[0]);
+          //  if(splitInput[0] == "view"){
+          //   getResponse(replFunc).then((response) => {
+          //   props.setHistory([...props.history, "commmand: view, result: ", response]);
+          //   });
+          //  }else{
           getResponse(replFunc).then((response) => {
-          props.setHistory([...props.history, response]);
-          })
+            props.setHistory([...props.history, response]);
+          });
+        } else {
+          props.setHistory([...props.history, "Please enter a valid command"]);
+        }
         //};
-       //need a case for wrong commands that have not been inputted
+        //need a case for wrong commands that have not been inputted
         break;
       // case "view":
       //   view();
@@ -225,12 +225,14 @@ export default function InputBox(props: InputBoxProps) {
       <input
         type="text"
         className="repl-command-box"
+        aria-label="Input Box"
+        aria-description="This is the input box. Write your commands here"
         onChange={(e) => setTextbox(e.target.value)}
         value={textbox}
       />
       {/* TODO: Make this button call handleSubmit when clicked */}
 
-      <button className="repl-button" onClick={handleSubmit}>
+      <button className="repl-button" aria-label="Submit Button" aria-description="This is the submit button. After you write your commands submit by pressing the button"onClick={handleSubmit}>
         Submit
       </button>
     </div>
