@@ -25,6 +25,15 @@ h1 {
   justify-content: center;
 }
 
+table {
+  font-size: 2rem;
+  padding: 10px 0;
+  display: flex;
+  justify-content: center;
+  height: auto;
+  width: auto;
+}
+
 .wrapper{
   margin: 0;
   border: 0;

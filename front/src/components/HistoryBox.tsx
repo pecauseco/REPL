@@ -18,18 +18,28 @@ function HistoryBox(props: HistoryBoxProps) {
     <div
       className="repl-history"
       aria-label="History Box"
-      aria-description="This is the history box. The responses to your commands will appear here"
+      aria-describedby="This is the history box. The responses to your commands will appear here"
+      aria-live="assertive"
     >
       {props.history.map((text, index) => (
         <div>
           {props.isVerbose ? (
-            <div aria-label="Command Results"
-            aria-description="This is the Command Name and Results because you are in Verbose Mode">
+            <div
+              aria-label="Command Results"
+              aria-describedby="This is the Command Name and Results because you are in Verbose Mode"
+              aria-live="assertive"
+            >
               {"Command: " + props.textboxArray[index]}
               {checkView(text)}
             </div>
           ) : (
-            <div aria-label="Command Results" aria-description="This is the Results of the command because you are in brief mode">{checkView(text)}</div>
+            <div
+              aria-label="Command Results"
+              aria-describedby="This is the Results of the command because you are in brief mode"
+              aria-live="assertive"
+            >
+              {checkView(text)}
+            </div>
           )}
         </div>
       ))}
