@@ -7,10 +7,14 @@
 .repl {
   position: relative;
   height: 80vh;
+  margin-top:0vh;
+  padding-top: 0;
 }
-
+header{
+  margin-top:3vh;
+}
 .repl-history {
-  height: 40vh;
+  height: 30vh;
   margin: auto;
   display: block;
   overflow: scroll;
@@ -23,6 +27,8 @@
 
 .bottomPage{
   height: 10vh;
+  position:relative;
+  bottom: 0;
 }
 
 .repl-command-box {
@@ -30,8 +36,7 @@
   width: 90%;
   height: relative;
   font-size: relative;
-  position:relative;
-  bottom: 0;
+  
   margin: auto;
   display: block;
 }

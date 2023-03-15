@@ -13,7 +13,9 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 }
-
+head{
+  margin-top:0px;
+}
 a {
   font-weight: 500;
   color: #646cff;
@@ -38,6 +40,7 @@ button {
   background-color: #1a1a1a;
   cursor: pointer;
   transition: border-color 0.25s;
+  height: 3vh:
 }
 button:hover {
   border-color: #646cff;
@@ -46,6 +49,13 @@ button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
+
+title{
+    height: auto;
+    margin-top: 0px;
+    position: fixed;
+    top: 0;
+  }
 
 @media (prefers-color-scheme: light) {
   :root {
@@ -58,4 +68,6 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+
+  
 }
