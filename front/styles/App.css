@@ -25,15 +25,6 @@ h1 {
   justify-content: center;
 }
 
-table {
-  font-size: 2rem;
-  padding: 10px 0;
-  display: flex;
-  justify-content: center;
-  height: auto;
-  width: auto;
-}
-
 .wrapper{
   margin: 0;
   border: 0;
@@ -49,10 +40,14 @@ table {
 
 .repl-history {
   /* height: 70vh; */
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   height: 85%;
   margin: 0px 10vw;
   display: block;
   overflow: scroll;
+
 }
 
 .repl-input {

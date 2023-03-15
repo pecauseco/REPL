@@ -19,7 +19,7 @@ export interface viewResponse {
     //also referenced from sprint-2-hmasamur-jwan8
     var result = "<table align='center'> \n";
     for (var i = 0; i < fileData.length; i++) {
-      result += "\t <tr> \n";
+      result += "\t <tr aria-label='Column "+i+1+"'> \n";
       for (var j = 0; j < fileData[i].length; j++) {
         result += "\t \t <td>" + fileData[i][j] + "</td> \n";
       }
