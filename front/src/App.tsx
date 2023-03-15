@@ -11,7 +11,7 @@ function App() {
   const [isVerbose, setIsVerbose] = useState(false);
   const [textboxArray, setTextboxArray] = useState<string[]>([]);
   return (
-    <div>
+    <div className="wrapper">
       <div className="header">
         <Header />
       </div>
