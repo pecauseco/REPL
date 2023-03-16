@@ -220,13 +220,14 @@ export default function InputBox(props: InputBoxProps) {
   }
 
   return (
-    <div aria-label="input area" aria-describedby="This is the input area" className="repl-input">
+    <div aria-label="Input area" aria-describedby="This is the input area" className="repl-input">
       {/* TODO: Make this input box sync with the state variable */}
       <input
         type="text"
         className="repl-command-box"
         aria-label="Input Box"
         aria-describedby="This is the input box. Write your commands here"
+        
         onChange={(e) => setTextbox(e.target.value)}
         value={textbox}
       />

@@ -1,70 +1,88 @@
 * {
   margin: 0;
   padding: 0;
+  text-align: center;
 }
 #root {
   max-width: 100vw;
   margin: 0 auto;
   height: 100vh;
   text-align: center;
-   background-image: linear-gradient(rgb(108, 171, 239), purple);
+  background-image: linear-gradient(rgb(108, 171, 239), purple);
+  overflow-y:scroll;
 }
 
-h1 {
-  font-size: 2rem;
+.replTitle{
+  height: 8vh;
+  padding:auto;
+  font-size:small;
+  position: relative;
+}
+
+table {
   padding: 10px 0;
-  height: 10vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  height: auto;
+  width: 50%;
+  border-collapse: collapse;
+  margin: 0 auto;
+  
 }
 
-.header{
-  font-size: 2vh;
-  display: flex;
-  justify-content: center;
+tr, td{
+  border: 2px solid darkblue;
+  border-collapse: collapse;
+  padding: 5px;
+    
+}
+
+
+.repl {
+  height: 80vh;
+  position: relative;
 }
 
 .wrapper{
-  margin: 0;
-  border: 0;
-  outline: 0;
-  display: flexbox;
-  justify-content: center;
-  flex-direction:column;
+  display: flex;
+  flex-direction: column;
 }
 
-.repl {
-  height: 60vh;
-}
 
 .repl-history {
-  /* height: 70vh; */
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 85%;
-  margin: 0px 10vw;
-  display: block;
-  overflow: scroll;
-
+  height: 65vh;
+  margin: auto;
+  width: 100%;
+  display:inline-block;
+  overflow-y: scroll;
+  overflow-x: scroll;
+  font-size: small;
 }
 
 .repl-input {
-  margin: auto;
-  height: 15vh;
-  width: 100%;
+  margin: 0px;
+  height: auto;
   display: flex;
-  justify-content: center;
   flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  flex-wrap:wrap;
   align-items: center;
-  bottom: 0;
+}
+
+.repl-button{
+  max-block-size: 11vh;
+  display: inline-block;
+  font-size: 6.5px;
+  text-align: center;
+  margin: 0px;
+  position: relative;
 }
 
 .repl-command-box {
   width: 90%;
-  margin: auto;
+  margin: 0px;
+  padding:0px;
   display: block;
+  max-block-size: 7vh;
+  font-size: auto
+  ;
 }
-
-

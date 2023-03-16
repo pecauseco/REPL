@@ -12,9 +12,7 @@ function App() {
   const [textboxArray, setTextboxArray] = useState<string[]>([]);
   return (
     <div className="wrapper">
-      <div className="header">
-        <Header />
-      </div>
+      <Header />
       <div className="repl">
         {/* TODO: Add HistoryBox */}
         <HistoryBox 
@@ -24,17 +22,15 @@ function App() {
         />
 
         <hr />
-        {/* TODO: Add InputBox */}
-        <div className="bottomPage">
-          <InputBox aria-label="This is the input box. Write your commands here"
-            history={history}
-            setHistory={setHistory}
-            isVerbose={isVerbose}
-            setIsVerbose={setIsVerbose}
-            textboxArray={textboxArray}
-            setTextboxArray={setTextboxArray}
+        <InputBox aria-label="This is the input box. Write your commands here"
+          history={history}
+          setHistory={setHistory}
+          isVerbose={isVerbose}
+          setIsVerbose={setIsVerbose}
+          textboxArray={textboxArray}
+          setTextboxArray={setTextboxArray}
           />
-        </div>
+        
       </div>
     </div>
   );
