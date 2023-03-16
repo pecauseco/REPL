@@ -6,6 +6,7 @@ import { registerCommand } from "../src/components/InputBox";
 import { mockLoad } from "./MockAPI";
 import { mockSearch } from "./MockAPI";
 import { mockView } from "./MockAPI";
+import { testFunc } from "./testREPLFunc";
 import App from "../src/App";
 import { resetFile } from "./MockAPI";
 
@@ -31,6 +32,31 @@ beforeEach(() => {
   input = screen.getByTestId("input-box")
   button = screen.getByTestId("button");
 })
+
+
+
+
+ test("registerCommand", async () => {
+   registerCommand("test", testFunc);
+   let user = userEvent.setup();
+   await userEvent.type(input, "test");
+   await user.click(button);
+   expect(
+    await screen.findByText("New function was correctly registered!")
+   ).toBeInTheDocument();
+
+
+ });
+
+  test("load_file", async () => {
+    let user = userEvent.setup();
+    await userEvent.type(input, "mock_load mock1 false");
+    await user.click(button);
+    expect(
+      await screen.findByText("File mock1 successfully loaded!")
+    ).toBeInTheDocument();
+  });
+
 
 
  test("basic math", () => {
