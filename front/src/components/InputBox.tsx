@@ -18,20 +18,6 @@ interface InputBoxProps {
   //
 }
 
-// export interface loadResponse{
-//   result: string,
-//   filepath: string
-// }
-
-// export interface searchResponse {
-//   result: string;
-//   search_result: string[];
-// }
-
-// export interface viewResponse {
-//   result: string;
-//   data: string[][];
-// }
 
 //adapted from abenjell-rdong14
 
@@ -59,96 +45,7 @@ export default function InputBox(props: InputBoxProps) {
   const [textbox, setTextbox] = useState("");
   let splitInput: string[];
 
-  // async function loadFile() {
-  //   const response: Response = await fetch(
-  //     "http://localhost:3233/loadcsv?filepath=" +
-  //       splitInput[1] +
-  //       "&hasheaders=" +
-  //       splitInput[2]
-  //   );
-  //   const responseJson: loadResponse = await response.json();
-  //   const result = responseJson.result;
-  //   const filepath = responseJson.filepath;
-  //   props.setHistory([
-  //     ...props.history,
-  //     "result: " + result + ", filepath: " + filepath,
-  //   ]);
-  // }
-
-  // async function view() {
-  //   const response: Response = await fetch("http://localhost:3233/viewcsv");
-  //   const responseJson: viewResponse = await response.json();
-  //   const result = responseJson.result;
-  //   const data = responseJson.data;
-  //   props.setHistory([
-  //     ...props.history,
-  //     "result: " + result + ", data: " + makeTable(data),
-  //   ]);
-  // }
-
-  // /**
-  //  * Makes a table representing the data from the csv
-  //  * @param fileData - the data from the loaded csv file
-  //  * @returns a string that is an html representaion of what will be added to the history
-  //  * portion of the page
-  //  */
-  // function makeTable(fileData: Array<Array<string>> | null): string {
-  //   if (fileData == null) {
-  //     return "Please input a correct 2D array.";
-  //   }
-
-  //   // referenced from https://stackoverflow.com/questions/15164655/generate-html-table-from-2d-javascript-array
-  //   //also referenced from sprint-2-hmasamur-jwan8
-  //   var result = "<table align='center'>";
-  //   for (var i = 0; i < fileData.length; i++) {
-  //     result += "<tr>";
-  //     for (var j = 0; j < fileData[i].length; j++) {
-  //       result += "<td>" + fileData[i][j] + "</td>";
-  //     }
-  //     result += "</tr>";
-  //   }
-  //   result += "</table>";
-  //   return result;
-  // }
-
-  // async function search() {
-  //   let response: Response;
-  //   console.log(splitInput);
-  //   if (splitInput.length < 2) {
-  //     props.setHistory([
-  //       ...props.history,
-  //       "result: please provide a search value",
-  //     ]);
-  //     return;
-  //   } else if (splitInput.length == 3) {
-  //     const col: string = splitInput[2];
-  //     response = await fetch(
-  //       "http://localhost:3233/searchcsv?value=" +
-  //         splitInput[1] +
-  //         "colindex=" +
-  //         col
-  //     );
-  //   } else {
-  //     if (splitInput[1] == "") {
-  //       props.setHistory([
-  //         ...props.history,
-  //         "result: please provide a search value",
-  //       ]);
-  //       return;
-  //     }
-  //     response = await fetch(
-  //       "http://localhost:3233/searchcsv?value=" + splitInput[1]
-  //     );
-  //   }
-  //   const responseJson: searchResponse = await response.json();
-  //   console.log(responseJson);
-  //   const result = responseJson.result;
-  //   const searchResult = responseJson.search_result;
-  //   props.setHistory([
-  //     ...props.history,
-  //     "result: " + result + ", search result: " + searchResult,
-  //   ]);
-  // }
+  
 
   async function getResponse(replFunc: Function | undefined): Promise<string> {
     return new Promise((resolve, reject) => {
@@ -161,6 +58,16 @@ export default function InputBox(props: InputBoxProps) {
   }
 
   function handleMode() {
+    props.setIsVerbose(!props.isVerbose);
+    if (props.isVerbose) {
+      props.setHistory(["mode is now in brief", ...props.history]);
+    } else {
+      props.setHistory(["mode is now in verbose", ...props.history]);
+    }
+  }
+
+  function handleModeArrow() {
+     props.setTextboxArray([...props.textboxArray, "mode through arrow"]);
     props.setIsVerbose(!props.isVerbose);
     if (props.isVerbose) {
       props.setHistory(["mode is now in brief", ...props.history]);
@@ -220,28 +127,41 @@ export default function InputBox(props: InputBoxProps) {
   }
 
   return (
-    <div aria-label="Input area" aria-describedby="This is the input area" className="repl-input">
+    <div
+      aria-label="Input area"
+      aria-describedby="This is the input area"
+      className="repl-input"
+    >
       {/* TODO: Make this input box sync with the state variable */}
       <input
         type="text"
         className="repl-command-box"
         aria-label="Input Box"
         aria-describedby="This is the input box. Write your commands here"
-        
         onChange={(e) => setTextbox(e.target.value)}
-        
         value={textbox}
+        onKeyUp={(e) => {
+          if (e.key == "Enter") {
+            handleSubmit();
+          }
+          else if(e.keyCode === 40){
+            handleModeArrow();
+          }
+        }}
+        
       />
       {/* TODO: Make this button call handleSubmit when clicked */}
 
-      <button className="repl-button" aria-label="Submit Button" aria-describedby="This is the submit button. After you write your commands submit by pressing the button"
-      onClick={handleSubmit}
-       onKeyUp={(e) => {
-          if (e.key == "Enter") {
-            handleSubmit;
-          }}}>
+      <button
+        className="repl-button"
+        aria-label="Submit Button"
+        aria-describedby="This is the submit button. After you write your commands submit by pressing the button"
+        onClick={handleSubmit}
+      >
         Submit
       </button>
     </div>
   );
 }
+
+
