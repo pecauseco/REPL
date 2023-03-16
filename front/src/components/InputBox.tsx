@@ -4,7 +4,7 @@ import { Load } from "../functions/load";
 import { View } from "../functions/view";
 import { Search } from "../functions/search";
 //ayman
-import { REPLFunction } from "../functions/REPLFunction";
+import { REPLFunction } from "../interfaces/REPLFunction";
 //
 
 interface InputBoxProps {
@@ -131,9 +131,11 @@ export default function InputBox(props: InputBoxProps) {
       aria-label="Input area"
       aria-describedby="This is the input area"
       className="repl-input"
+     
     >
       {/* TODO: Make this input box sync with the state variable */}
       <input
+        data-testid="input-box"
         type="text"
         className="repl-command-box"
         aria-label="Input Box"
@@ -154,6 +156,7 @@ export default function InputBox(props: InputBoxProps) {
 
       <button
         className="repl-button"
+        data-testid="button"
         aria-label="Submit Button"
         aria-describedby="This is the submit button. After you write your commands submit by pressing the button"
         onClick={handleSubmit}

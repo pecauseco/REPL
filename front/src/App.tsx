@@ -16,6 +16,7 @@ function App() {
       <div className="repl">
         {/* TODO: Add HistoryBox */}
         <HistoryBox 
+          
           history={history}
           isVerbose={isVerbose}
           textboxArray={textboxArray}

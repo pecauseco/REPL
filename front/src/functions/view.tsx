@@ -1,4 +1,4 @@
-import { REPLFunction } from "./REPLFunction";
+import { REPLFunction } from "../interfaces/REPLFunction";
 
 export interface viewResponse {
   result: string;
