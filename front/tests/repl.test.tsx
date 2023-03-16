@@ -48,13 +48,65 @@ beforeEach(() => {
 
  });
 
-  test("load_file", async () => {
+  test("load_file not existent", async () => {
+    let user = userEvent.setup();
+    await userEvent.type(input, "mock_load blah false");
+    await user.click(button);
+    expect(
+      await screen.findByText(
+        "The given file was not found! Please load a valid file."
+      )
+    ).toBeInTheDocument();
+  });
+
+  test("load_file no argument", async () => {
+    let user = userEvent.setup();
+    await userEvent.type(input, "mock_load");
+    await user.click(button);
+    expect(
+      await screen.findByText("Please specify a file to load")
+    ).toBeInTheDocument();
+  });
+
+
+  test("switching between load_file and searching", async () => {
     let user = userEvent.setup();
     await userEvent.type(input, "mock_load mock1 false");
     await user.click(button);
     expect(
       await screen.findByText("File mock1 successfully loaded!")
     ).toBeInTheDocument();
+
+await userEvent.type(input, "mock_search Charlie");
+await user.click(button);
+expect(
+  await screen.findByText("Charlie,and,Caroline,so,slay.")
+).toBeInTheDocument();
+
+      await userEvent.type(input, "mock_load mock2 false");
+      await user.click(button);
+      expect(
+        await screen.findByText("File mock2 successfully loaded!")
+      ).toBeInTheDocument();
+
+      await userEvent.type(input, "mock_search Ariana");
+      await user.click(button);
+      expect(
+        await screen.findByText("Ariana,Demi,Taylor,Miley,Mariah")
+      ).toBeInTheDocument();
+
+        await userEvent.type(input, "mock_load mock3 false");
+        await user.click(button);
+        expect(
+          await screen.findByText("File mock3 successfully loaded!")
+        ).toBeInTheDocument();
+
+
+      await userEvent.type(input, "mock_search Shakira");
+      await user.click(button);
+      expect(
+        await screen.findByText("Shakira,Bad,Bunny")
+      ).toBeInTheDocument();
   });
 
 

@@ -12,11 +12,11 @@ export const mockLoad: REPLFunction = function (
   return new Promise((resolve, reject) => {
     if (args.length < 2) {
       resolve(
-        "Please specify a file to load and whether it has a header (true/false)"
+        "Please specify a file to load"
       );
     } else {
-      const file = args[0];
-      const hasHeader = args[1];
+      const file = args[1];
+      const hasHeader = args[2];
       if (fileMap.has(file)) {
         const data = fileMap.get(file);
         if (data != null) {
@@ -38,12 +38,12 @@ export const mockSearch: REPLFunction = function (
     if (args.length < 2) {
       resolve("Please specify a column and search value.");
     } else {
-      const col = args[0];
+      const col = args[2];
       const value = args[1];
       if (resultMap.has(value)) {
         const result = resultMap.get(value);
         if (result != null) {
-          resolve(makeTable(result));
+          resolve(result.toString());
         }
       } else {
         resolve("No results found.");

@@ -20,6 +20,9 @@ const searchShakira = [
     ["Shakira", "Bad", "Bunny"]
 ];
 
+const searchCharlie = [["Charlie", "and", "Caroline", "so", "slay."]];
+
+
 const searchAriana = [
     ["Ariana", "Demi", "Taylor", "Miley", "Mariah"]
 ]
@@ -33,7 +36,8 @@ const fileMap = new Map([
 
 const resultMap = new Map([
     ["Shakira", searchShakira],
-    ["Ariana", searchAriana]
+    ["Ariana", searchAriana],
+    ["Charlie", searchCharlie]
 ])
 
-export { mock1, mock2, mock3, mockEmpty, searchShakira, searchAriana, fileMap, resultMap}
+export { mock1, mock2, mock3, mockEmpty, searchShakira, searchCharlie, searchAriana, fileMap, resultMap}
