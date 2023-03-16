@@ -52,6 +52,7 @@ tr, td{
   margin: auto;
   width: 100%;
   display:inline-block;
+  
   overflow-y: scroll;
   overflow-x: scroll;
   font-size: small;

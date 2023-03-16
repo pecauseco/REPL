@@ -21,7 +21,7 @@ function HistoryBox(props: HistoryBoxProps) {
       aria-describedby="This is the history box. The responses to your commands will appear here"
       aria-live="assertive"
     >
-      {props.history.map((text, index) => (
+      {props.history.map((text, index, arr) => (
         
           props.isVerbose ? (
             <div
@@ -29,7 +29,7 @@ function HistoryBox(props: HistoryBoxProps) {
               aria-describedby="This is the Command Name and Results because you are in Verbose Mode"
               aria-live="assertive"
             >
-              {"Command: " + props.textboxArray[index]}
+              {"Command: " + props.textboxArray[arr.length - 1 -index]}
               {checkView(text)}
             </div>
           ) : (

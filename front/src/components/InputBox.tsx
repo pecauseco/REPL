@@ -163,9 +163,9 @@ export default function InputBox(props: InputBoxProps) {
   function handleMode() {
     props.setIsVerbose(!props.isVerbose);
     if (props.isVerbose) {
-      props.setHistory([...props.history, "mode is now in verbose"]);
+      props.setHistory(["mode is now in brief", ...props.history]);
     } else {
-      props.setHistory([...props.history, "mode is now in brief"]);
+      props.setHistory(["mode is now in verbose", ...props.history]);
     }
   }
 
@@ -196,10 +196,10 @@ export default function InputBox(props: InputBoxProps) {
           //   });
           //  }else{
           getResponse(replFunc).then((response) => {
-            props.setHistory([...props.history, response]);
+            props.setHistory([response, ...props.history]);
           });
         } else {
-          props.setHistory([...props.history, "Please enter a valid command"]);
+          props.setHistory(["Please enter a valid command", ...props.history]);
         }
         //};
         //need a case for wrong commands that have not been inputted
@@ -229,11 +229,17 @@ export default function InputBox(props: InputBoxProps) {
         aria-describedby="This is the input box. Write your commands here"
         
         onChange={(e) => setTextbox(e.target.value)}
+        
         value={textbox}
       />
       {/* TODO: Make this button call handleSubmit when clicked */}
 
-      <button className="repl-button" aria-label="Submit Button" aria-describedby="This is the submit button. After you write your commands submit by pressing the button"onClick={handleSubmit}>
+      <button className="repl-button" aria-label="Submit Button" aria-describedby="This is the submit button. After you write your commands submit by pressing the button"
+      onClick={handleSubmit}
+       onKeyUp={(e) => {
+          if (e.key == "Enter") {
+            handleSubmit;
+          }}}>
         Submit
       </button>
     </div>
