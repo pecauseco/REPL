@@ -190,6 +190,15 @@ beforeEach(() => {
     ).toBeInTheDocument();   
   })
 
+  test("invalid command", async ()=> {
+    let user = userEvent.setup();
+    await userEvent.type(input, "hi");
+    await user.click(button);  
+    expect(
+      await screen.findByText("Please enter a valid command")
+    ).toBeInTheDocument();  
+  })
+
 
   
 

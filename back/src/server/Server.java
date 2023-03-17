@@ -1,8 +1,8 @@
-package src.server;
+package server;
 
 import static spark.Spark.after;
 
-import src.server.handlers.*;
+import server.handlers.*;
 import spark.Spark;
 
 /** the Main class of our project. this is where execution begins. */

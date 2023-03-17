@@ -1,7 +1,7 @@
-package src.csv;
+package csv;
 
-import src.csv.creators.CreatorFromRow;
-import src.csv.creators.FactoryFailureException;
+import csv.creators.CreatorFromRow;
+import csv.creators.FactoryFailureException;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;

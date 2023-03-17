@@ -1,4 +1,4 @@
-package src.csv;
+package csv;
 
 import java.util.ArrayList;
 import java.util.List;

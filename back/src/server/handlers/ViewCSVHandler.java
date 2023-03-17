@@ -1,4 +1,4 @@
-package src.server.handlers;
+package server.handlers;
 
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;

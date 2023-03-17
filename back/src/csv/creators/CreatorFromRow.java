@@ -1,4 +1,4 @@
-package src.csv.creators;
+package csv.creators;
 
 import java.util.List;
 
