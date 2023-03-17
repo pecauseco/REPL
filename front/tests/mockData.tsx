@@ -1,3 +1,4 @@
+//adapted from hmasamur-tchandar repo
 const mock1 = [
     ["Charlie", "and", "Caroline", "so", "slay."]
 ]

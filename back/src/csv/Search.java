@@ -40,6 +40,10 @@ public class Search {
     this.colIndex = colIndex;
     this.csvData = csv;
     this.searchResults = new ArrayList<>();
+    if (this.colIndex >= csv.get(0).size() || this.colIndex <0 ){
+      this.performSearch(false);
+      return;
+    }
     this.performSearch(true); // using col index
   }
 
@@ -52,8 +56,10 @@ public class Search {
    */
   public Search(String searchValue, String colName, List<List<String>> csv) {
     this.searchValue = searchValue;
+
     this.csvData = csv;
     this.searchResults = new ArrayList<>();
+
     this.searchOnColName(colName); // using col index
   }
 
@@ -65,7 +71,7 @@ public class Search {
    * @param onColumn
    */
   public void performSearch(boolean onColumn) {
-    
+
     if (onColumn == false) {
       this.genericSearch(this.csvData);
     } else {
@@ -110,19 +116,19 @@ public class Search {
   }
 
   public void searchOnColName(String colName) {
-    int colIndex = -1;
-    for (int i = 0; i < this.csvData.size(); i++) {
+    int colIndex2 = -1;
+    for (int i = 0; i < this.csvData.get(0).size(); i++) {
       if (this.csvData.get(0).get(i).equals(colName)) {
-        colIndex = i; // this is the correct column to search in
+        colIndex2 = i; // this is the correct column to search in
       }
     }
 
-    if(colIndex == -1) { //should make this work better
+    if(colIndex2 == -1) { //should make this work better
       return;
     }
 
     for (List<String> l : this.csvData) {
-      if (l.get(colIndex).equals(this.searchValue)) { // only searches the given col index
+      if (l.get(colIndex2).equals(this.searchValue)) { // only searches the given col index
         this.searchResults.add(l);
         break;
       }
