@@ -67,6 +67,6 @@ public class Parser<T> {
       //      this.parse();
 
     }
-    return returnList;
+    return new ArrayList<T>(returnList);
   }
 }

@@ -35,10 +35,13 @@ export const mockSearch: REPLFunction = function (
   args: Array<string>
 ): Promise<string> {
   return new Promise((resolve, reject) => {
+    console.log(filename)
     if (args.length < 2) {
       resolve("Please specify a column and search value.");
-    } else {
-      const col = args[2];
+    } else if(filename == ""){
+      console.log("no file")
+      resolve("Please load a file.")
+    }else {
       const value = args[1];
       if (resultMap.has(value)) {
         const result = resultMap.get(value);
@@ -56,7 +59,6 @@ export const mockView: REPLFunction = function (
   args: Array<string>
 ): Promise<string> {
   return new Promise((resolve, reject) => {
-    console.log(cur_file);
     if (cur_file == null || filename == "") {
       resolve("Please load a valid file before viewing.");
     } else {

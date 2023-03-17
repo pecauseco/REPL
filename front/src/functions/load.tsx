@@ -9,7 +9,7 @@ export const Load: REPLFunction = async (
   splitInput: Array<string>
 ): Promise<string> => {
     const response: Response = await fetch(
-      "http://localhost:3233/loadcsv?filepath=" +
+      "http://localhost:3234/loadcsv?filepath=" +
         splitInput[1] +
         "&hasheaders=" +
         splitInput[2]

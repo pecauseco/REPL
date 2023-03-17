@@ -16,7 +16,7 @@ public final class Server {
     //      throws IOException { // args[0] = file etc so they can pass in args
     //    new Server(args).run();
 
-    Spark.port(3233);
+    Spark.port(3234);
     /*
        Setting CORS headers to allow cross-origin requests from the client; this is necessary for the client to
        be able to make requests to the edu.brown.cs.student.main.server.

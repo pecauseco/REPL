@@ -77,47 +77,121 @@ beforeEach(() => {
       await screen.findByText("File mock1 successfully loaded!")
     ).toBeInTheDocument();
 
-await userEvent.type(input, "mock_search Charlie");
-await user.click(button);
-expect(
-  await screen.findByText("Charlie,and,Caroline,so,slay.")
-).toBeInTheDocument();
+    await userEvent.type(input, "mock_search Charlie");
+    await user.click(button);
+    expect(
+      await screen.findByText("Charlie,and,Caroline,so,slay.")
+    ).toBeInTheDocument();
 
-      await userEvent.type(input, "mock_load mock2 false");
-      await user.click(button);
-      expect(
-        await screen.findByText("File mock2 successfully loaded!")
-      ).toBeInTheDocument();
+    await userEvent.type(input, "mock_load mock2 false");
+    await user.click(button);
+    expect(
+      await screen.findByText("File mock2 successfully loaded!")
+    ).toBeInTheDocument();
 
-      await userEvent.type(input, "mock_search Ariana");
-      await user.click(button);
-      expect(
-        await screen.findByText("Ariana,Demi,Taylor,Miley,Mariah")
-      ).toBeInTheDocument();
+    await userEvent.type(input, "mock_search Ariana");
+    await user.click(button);
+    expect(
+      await screen.findByText("Ariana,Demi,Taylor,Miley,Mariah")
+    ).toBeInTheDocument();
 
-        await userEvent.type(input, "mock_load mock3 false");
-        await user.click(button);
-        expect(
-          await screen.findByText("File mock3 successfully loaded!")
-        ).toBeInTheDocument();
+    await userEvent.type(input, "mock_load mock3 false");
+    await user.click(button);
+    expect(
+        await screen.findByText("File mock3 successfully loaded!")
+    ).toBeInTheDocument();
 
 
-      await userEvent.type(input, "mock_search Shakira");
-      await user.click(button);
-      expect(
-        await screen.findByText("Shakira,Bad,Bunny")
-      ).toBeInTheDocument();
+    await userEvent.type(input, "mock_search Shakira");
+    await user.click(button);
+    expect(
+      await screen.findByText("Shakira,Bad,Bunny")
+    ).toBeInTheDocument();
+
+    await userEvent.type(input, "mock_search hi");
+    await user.click(button);
+    expect(
+      await screen.findByText("No results found.")
+    ).toBeInTheDocument();
   });
 
+  test("search no file", async () => {
+    let user = userEvent.setup();
+    await userEvent.type(input, "mock_search hi");
+    await user.click(button);
+    expect(
+      await screen.findByText("Please load a file.")
+    ).toBeInTheDocument();
+  });
+
+  test("view", async () => {
+    let user = userEvent.setup();
+    await userEvent.type(input, "mock_load mock1 false");
+    await user.click(button);
+    await userEvent.type(input, "mock_view");
+    await user.click(button);
+    expect(await screen.getByRole("table", { name: "" }).innerHTML).toEqual(
+      " \n\t <tbody><tr> \n\t \t <td>Charlie</td> \n\t \t <td>and</td> \n\t \t <td>Caroline</td> \n\t \t <td>so</td> \n\t \t <td>slay.</td> \n\t </tr> \n</tbody>"
+    );
+  });
+
+  test("view after two loads", async () =>{
+    let user = userEvent.setup();
+    await userEvent.type(input, "mock_load mock1 false");
+    await user.click(button);
+    await userEvent.type(input, "mock_load mock2 false");
+    await user.click(button);
+    await userEvent.type(input, "mock_view");
+    await user.click(button);
+
+    expect(await screen.getByRole("table", { name: "" }).innerHTML).toContain(
+      " \n\t <tbody><tr> \n\t \t <td>Ariana</td> \n\t \t <td>Demi</td> \n\t \t <td>Taylor</td> \n\t \t <td>Miley</td> \n\t \t <td>Mariah</td>"
+    );  
+  })
+
+  test("view no file", async () =>{
+    let user = userEvent.setup();
+    await userEvent.type(input, "mock_view");
+    await user.click(button);    
+
+    expect(
+      await screen.findByText("Please load a valid file before viewing.")
+    ).toBeInTheDocument();
+  })
+
+  test("changing mode", async () =>{
+    let user = userEvent.setup();
+    await userEvent.type(input, "mock_load mock1 false");
+    await user.click(button);    
+    await userEvent.type(input, "mode");
+    await user.click(button);    
+
+    expect(
+      await screen.findByText("Command: mode")
+    ).toBeInTheDocument();
+
+    await userEvent.type(input, "mode");
+    await user.click(button);   
+    expect(
+      await screen.findByText("mode is now in brief")
+    ).toBeInTheDocument();
+
+    await userEvent.type(input, "mode");
+    await user.click(button);
+    expect(await screen.findByText("Command: mock_load mock1 false")).toBeInTheDocument();
+
+  })
+
+  test("entering with button", async () =>{
+    let user = userEvent.setup();
+    await userEvent.type(input, "mock_load mock1 false");
+    await user.keyboard('{Enter}')  
+    expect(await screen.findByText("File mock1 successfully loaded!")
+    ).toBeInTheDocument();   
+  })
 
 
- test("basic math", () => {
-   expect(1 + 1).toBe(2);
- });
-/*
- * This is an example test file.
- * It is meant to be a starting point for writing your own tests.
- * Feel free to research all the other functions that Jest and Testing Library provide!
- */
+  
+
 
 

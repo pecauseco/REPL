@@ -100,6 +100,7 @@ public class Search {
    * @param toSearch the List<List<String>> that is being searched within
    */
   public void searchOnCol(List<List<String>> toSearch) {
+    System.out.println("hi");
     for (List<String> l : toSearch) {
       if (l.get(this.colIndex).equals(this.searchValue)) { // only searches the given col index
         this.searchResults.add(l);
@@ -138,6 +139,6 @@ public class Search {
     if (this.searchResults.size() == 0){
       throw new Exception();
     }
-    return this.searchResults;
+    return new ArrayList<List<String>>(this.searchResults);
   }
 }

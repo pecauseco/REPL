@@ -41,7 +41,6 @@ function initFuncMap() {
 //
 export default function InputBox(props: InputBoxProps) {
   initFuncMap();
-  // TODO: Add a state variable for the textbox contents
   const [textbox, setTextbox] = useState("");
   let splitInput: string[];
 
@@ -82,12 +81,6 @@ export default function InputBox(props: InputBoxProps) {
    * command logic, but for now it just adds the text to the history box.
    */
   function handleSubmit() {
-    // TODO: Add the text from the textbox to the history
-    // Hint: You can use the spread operator (...) to add to an array
-    // TODO: Clear the textbox
-    // console.log("current contents " + textbox);
-    // props.setHistory([...props.history, textbox]);
-    //...props.history means everything that is in props.history, just adding textbox to the end
     props.setTextboxArray([...props.textboxArray, textbox]);
     splitInput = textbox.split(" ");
     switch (splitInput[0]) {
@@ -97,29 +90,14 @@ export default function InputBox(props: InputBoxProps) {
       default:
         if (registeredFunctions.has(splitInput[0])) {
           let replFunc = registeredFunctions.get(splitInput[0]);
-          //  if(splitInput[0] == "view"){
-          //   getResponse(replFunc).then((response) => {
-          //   props.setHistory([...props.history, "commmand: view, result: ", response]);
-          //   });
-          //  }else{
           getResponse(replFunc).then((response) => {
             props.setHistory([response, ...props.history]);
           });
         } else {
           props.setHistory(["Please enter a valid command", ...props.history]);
         }
-        //};
-        //need a case for wrong commands that have not been inputted
         break;
-      // case "view":
-      //   view();
-      //   break;
-      // case "search":
-      //   search();
-      //   break;
-      // default:
-      //   // notACommand();
-      //   break;
+
     }
 
     setTextbox("");
@@ -133,7 +111,6 @@ export default function InputBox(props: InputBoxProps) {
       className="repl-input"
      
     >
-      {/* TODO: Make this input box sync with the state variable */}
       <input
         data-testid="input-box"
         type="text"
@@ -152,7 +129,6 @@ export default function InputBox(props: InputBoxProps) {
         }}
         
       />
-      {/* TODO: Make this button call handleSubmit when clicked */}
 
       <button
         className="repl-button"
