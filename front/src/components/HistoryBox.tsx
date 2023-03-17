@@ -1,9 +1,18 @@
+
+/**
+ * The interface that contaoins all of the history box props
+ */
 interface HistoryBoxProps {
   history: string[];
   isVerbose: boolean;
   textboxArray: string[];
 }
 
+/**
+ * Checks to see if the output is view. If it is, it sets the table up. If not
+ * it prints it out as text
+ * @param - text, the string that represents the output into history
+ */
 function checkView(text: string){
   if (text.startsWith("<table align='center'>")) {
     return <div dangerouslySetInnerHTML={{ __html: text}} />
@@ -12,6 +21,9 @@ function checkView(text: string){
   }
 }
 
+/**
+ * This function represents the history box and has a return that returns the HTML elements
+ */
 function HistoryBox(props: HistoryBoxProps) {
  
   return (
@@ -42,9 +54,6 @@ function HistoryBox(props: HistoryBoxProps) {
           </div>
         )
       )}
-
-      {/* TODO: Add a div for each command in the history */}
-      {/* Hint: You can use the map function to iterate over an array */}
     </div>
   );
 }

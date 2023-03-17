@@ -1,4 +1,4 @@
-package csv;
+package src.csv;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,7 +65,7 @@ public class Search {
    * @param onColumn
    */
   public void performSearch(boolean onColumn) {
-    System.out.println(this.csvData);
+    
     if (onColumn == false) {
       this.genericSearch(this.csvData);
     } else {

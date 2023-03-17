@@ -28,6 +28,12 @@ export interface viewResponse {
     result += "</table>";
     return result;
   }
+  /**
+   * This method gets the view output from the API and then
+   * makes a ytable utilizing the output
+   * @param splitInput 
+   * @returns a promise representing the output from the API
+   */
 export const View: REPLFunction = async (
   splitInput: Array<string>
 ): Promise<string> => {

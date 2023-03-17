@@ -1,10 +1,16 @@
 import { REPLFunction } from "../interfaces/REPLFunction"
 
-
+/**
+ * An interface with the different parts of our load function
+ */
 export interface loadResponse {
   result: string;
   filepath: string;
 }
+/**
+ * This is a constant representing the API call with the link to our API call
+ * It takes in splitInpu and returns a Promise
+ */
 export const Load: REPLFunction = async (
   splitInput: Array<string>
 ): Promise<string> => {
@@ -17,9 +23,5 @@ export const Load: REPLFunction = async (
     const responseJson: loadResponse = await response.json();
     const result = responseJson.result;
     const filepath = responseJson.filepath;
-    return  "result: " + result + ", filepath: " + filepath;
-    // props.setHistory([
-    //   ...props.history,
-    //   "result: " + result + ", filepath: " + filepath,
-    // ]);
+    return  "Loading was a " + result + ", filepath: " + filepath;
   }

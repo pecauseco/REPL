@@ -17,9 +17,9 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import server.handlers.LoadCSVHandler;
-import server.handlers.SearchCSVHandler;
-import server.handlers.ViewCSVHandler;
+import src.server.handlers.LoadCSVHandler;
+import src.server.handlers.SearchCSVHandler;
+import src.server.handlers.ViewCSVHandler;
 import spark.Spark;
 
 public class TestServer {
